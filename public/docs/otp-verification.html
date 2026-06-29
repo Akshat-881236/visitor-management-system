@@ -4,13 +4,25 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>OTP Verification Guide | Visitor Management System</title>
-
 <meta name="description"
-content="Learn how to successfully complete OTP verification in Visitor Management System.">
+content="Complete guide to OTP Verification, Two-Tier Authentication and Security Verification Process in Visitor Management System.">
+
+<meta name="keywords"
+content="OTP Verification, Two Tier Authentication, VMS Security, Administrator Login">
+
+<meta name="author"
+content="Visitor Management System">
+
+<title>
+
+OTP Verification Guide |
+Visitor Management System
+
+</title>
 
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -98,11 +110,11 @@ margin-bottom:20px;
 
 .hero-box h1{
 
-font-size:2.5rem;
+font-size:2.6rem;
 
 color:var(--dark);
 
-margin-bottom:15px;
+margin-bottom:18px;
 
 }
 
@@ -110,9 +122,9 @@ margin-bottom:15px;
 
 font-size:1.1rem;
 
-color:var(--muted);
-
 line-height:1.8;
+
+color:var(--muted);
 
 }
 
@@ -126,7 +138,7 @@ padding:40px 0 70px;
 
 .blog-card{
 
-background:var(--card);
+background:#fff;
 
 border-radius:30px;
 
@@ -138,11 +150,11 @@ box-shadow:var(--shadow);
 
 .blog-card h2{
 
+font-size:1.9rem;
+
 color:var(--dark);
 
 margin-bottom:25px;
-
-font-size:1.9rem;
 
 }
 
@@ -170,7 +182,7 @@ align-items:flex-start;
 
 gap:15px;
 
-padding:15px 0;
+padding:16px 0;
 
 border-bottom:
 1px solid var(--border);
@@ -186,6 +198,8 @@ font-size:1.2rem;
 color:var(--success);
 
 margin-top:4px;
+
+min-width:24px;
 
 }
 
@@ -275,9 +289,9 @@ padding:40px 0;
 
 text-align:center;
 
-color:var(--muted);
-
 font-size:.95rem;
+
+color:var(--muted);
 
 }
 
@@ -336,7 +350,7 @@ padding:25px;
 
 .blog-card h2{
 
-font-size:1.5rem;
+font-size:1.45rem;
 
 }
 
@@ -354,9 +368,9 @@ flex-direction:column;
 
 .action-btn{
 
-justify-content:center;
-
 width:100%;
+
+justify-content:center;
 
 }
 
@@ -404,7 +418,7 @@ OTP Verification Guide
 
 <p>
 
-Understand the secure One-Time Password verification workflow used by the Visitor Management System.
+Learn how One-Time Password authentication and Two-Tier Verification strengthen security within the Visitor Management System.
 
 </p>
 
@@ -423,15 +437,15 @@ Understand the secure One-Time Password verification workflow used by the Visito
 
 <h2>
 
-<i class="bi bi-shield-check"></i>
+<i class="bi bi-shield-lock-fill"></i>
 
-How OTP Verification Works
+Understanding OTP & Two-Tier Authentication
 
 </h2>
 
 <p>
 
-The Visitor Management System uses email-based One-Time Password (OTP) verification as an additional security mechanism. This two-factor authentication process ensures that only authorized administrators and security personnel gain access to protected dashboard resources. Follow the steps below to complete OTP verification successfully.
+The Visitor Management System utilizes One-Time Password (OTP) based Two-Tier Authentication to protect administrative and security operations. Sensitive operations such as approving visitors, monitoring check-ins, retrieving visitor records and accessing dashboards require strong identity verification. OTP verification acts as an additional security layer that significantly reduces the risk of unauthorized access and credential misuse.
 
 </p>
 
@@ -439,11 +453,35 @@ The Visitor Management System uses email-based One-Time Password (OTP) verificat
 
 <li>
 
-<i class="bi bi-person-check-fill"></i>
+<i class="bi bi-question-circle-fill"></i>
 
 <span>
 
-Enter your registered login credentials and submit the authentication request through the secure login portal.
+<b>What is OTP?</b> OTP stands for One-Time Password. It is a temporary numeric security code generated uniquely for a single authentication request.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-shield-check"></i>
+
+<span>
+
+<b>What is Two-Tier Verification?</b> Two-Tier Verification requires users to successfully complete two independent security checks before obtaining access.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-person-lock"></i>
+
+<span>
+
+<b>First Verification Layer:</b> The user must provide valid credentials such as Email ID, Employee ID or Password.
 
 </span>
 
@@ -455,7 +493,7 @@ Enter your registered login credentials and submit the authentication request th
 
 <span>
 
-A unique One-Time Password (OTP) is automatically generated and delivered to your registered email address.
+<b>Second Verification Layer:</b> A secure OTP is sent to the registered email address for identity confirmation.
 
 </span>
 
@@ -463,11 +501,11 @@ A unique One-Time Password (OTP) is automatically generated and delivered to you
 
 <li>
 
-<i class="bi bi-envelope-open-fill"></i>
+<i class="bi bi-lock-fill"></i>
 
 <span>
 
-Open your email inbox and carefully locate the latest OTP message sent by the Visitor Management System.
+<b>Why is OTP Required?</b> Even if passwords are accidentally exposed, attackers cannot access the system without the registered user's email account.
 
 </span>
 
@@ -475,11 +513,11 @@ Open your email inbox and carefully locate the latest OTP message sent by the Vi
 
 <li>
 
-<i class="bi bi-123"></i>
+<i class="bi bi-envelope-check-fill"></i>
 
 <span>
 
-Enter the received OTP exactly as displayed. OTP codes are case-sensitive and time-bound.
+OTP is always delivered only to the officially registered email address associated with the authenticated account.
 
 </span>
 
@@ -487,11 +525,11 @@ Enter the received OTP exactly as displayed. OTP codes are case-sensitive and ti
 
 <li>
 
-<i class="bi bi-clock-fill"></i>
+<i class="bi bi-clock-history"></i>
 
 <span>
 
-OTP codes remain valid only for a limited duration. Expired OTPs require a fresh login attempt.
+Each OTP remains valid only for a limited period to minimize security risks and prevent unauthorized reuse.
 
 </span>
 
@@ -499,11 +537,11 @@ OTP codes remain valid only for a limited duration. Expired OTPs require a fresh
 
 <li>
 
-<i class="bi bi-check-circle-fill"></i>
+<i class="bi bi-arrow-repeat"></i>
 
 <span>
 
-Upon successful verification, a secure authenticated session is generated automatically.
+Expired OTPs cannot be reused. Users must initiate a fresh login request to generate a new verification code.
 
 </span>
 
@@ -511,11 +549,11 @@ Upon successful verification, a secure authenticated session is generated automa
 
 <li>
 
-<i class="bi bi-speedometer2"></i>
+<i class="bi bi-diagram-3-fill"></i>
 
 <span>
 
-Users are redirected to their respective dashboards after successful OTP validation.
+<b>Verification Workflow:</b> Login Request → Credential Validation → OTP Generation → Email Delivery → OTP Verification → Secure Session Generation → Dashboard Access.
 
 </span>
 
@@ -527,7 +565,67 @@ Users are redirected to their respective dashboards after successful OTP validat
 
 <span>
 
-Never share OTP codes with anyone. System administrators will never ask for your OTP.
+Users should never share OTP codes with colleagues, visitors or third parties under any circumstances.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-device-hdd-fill"></i>
+
+<span>
+
+Upon successful OTP verification, a secure session identifier is generated to maintain authenticated communication.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-door-open-fill"></i>
+
+<span>
+
+Administrators and Security Personnel should always logout after completing operational activities, particularly on shared devices.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-bug-fill"></i>
+
+<span>
+
+If OTP delivery or verification repeatedly fails, users should consult the OTP Troubleshooting documentation or contact system administrators.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-patch-question-fill"></i>
+
+<span>
+
+<b>Can an OTP be reused?</b> No. Every OTP is single-use and automatically invalidated after successful verification or expiration.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-patch-question-fill"></i>
+
+<span>
+
+<b>Can someone login using only my password?</b> No. The system additionally requires OTP verification through the registered email account.
 
 </span>
 
@@ -538,7 +636,8 @@ Never share OTP codes with anyone. System administrators will never ask for your
 
 <div class="action-buttons">
 
-<a href="javascript:history.back()"
+<a
+href="javascript:history.back()"
 class="action-btn back">
 
 <i class="bi bi-arrow-left-circle-fill"></i>
@@ -552,7 +651,8 @@ Go Back
 </a>
 
 
-<a href="https://visitor-management-system-ilux.onrender.com/"
+<a
+href="https://visitor-management-system-ilux.onrender.com/"
 class="action-btn home">
 
 <i class="bi bi-house-door-fill"></i>
@@ -566,7 +666,8 @@ Home
 </a>
 
 
-<a href="https://visitor-management-system-ilux.onrender.com/Admins/index.html"
+<a
+href="https://visitor-management-system-ilux.onrender.com/Admins/index.html"
 class="action-btn portal">
 
 <i class="bi bi-shield-lock-fill"></i>
