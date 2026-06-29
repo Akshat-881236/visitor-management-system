@@ -1,0 +1,1800 @@
+<!-- public/Security/dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Security Dashboard | VMS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+/* public/Security/dashboard.css */
+
+:root{
+--primary:#2563eb;
+--primary-dark:#1d4ed8;
+--success:#16a34a;
+--danger:#dc2626;
+--warning:#f59e0b;
+
+--bg:#f8fafc;
+--card:#ffffff;
+--border:#e2e8f0;
+
+--text:#0f172a;
+--muted:#64748b;
+
+--shadow:
+0 10px 30px rgba(15,23,42,.08);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:
+linear-gradient(
+135deg,
+#dbeafe 0%,
+#eff6ff 30%,
+#f8fafc 100%
+);
+min-height:100vh;
+color:var(--text);
+overflow-x:hidden;
+}
+
+/* ==========================
+HEADER
+========================== */
+
+.topbar{
+position:sticky;
+top:0;
+z-index:100;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:
+rgba(255,255,255,.92);
+backdrop-filter:blur(18px);
+box-shadow:var(--shadow);
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.brand img{
+width:58px;
+height:58px;
+object-fit:contain;
+}
+
+.brand h2{
+font-size:1.4rem;
+font-weight:700;
+}
+
+.brand p{
+color:var(--muted);
+font-size:.9rem;
+margin-top:3px;
+}
+
+.logout-btn{
+border:none;
+background:var(--danger);
+color:white;
+padding:14px 20px;
+border-radius:14px;
+font-size:.95rem;
+cursor:pointer;
+transition:.3s;
+}
+
+.logout-btn:hover{
+transform:translateY(-2px);
+background:#b91c1c;
+}
+
+/* ==========================
+MAIN DASHBOARD
+========================== */
+
+.dashboard{
+width:min(96%,1600px);
+margin:25px auto;
+display:grid;
+gap:25px;
+}
+
+/* ==========================
+SEARCH PANEL
+========================== */
+
+.search-panel{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(350px,1fr));
+gap:25px;
+}
+
+.card{
+background:var(--card);
+padding:28px;
+border-radius:30px;
+box-shadow:var(--shadow);
+}
+
+.card h3{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
+font-size:1.2rem;
+}
+
+.card h3 i{
+color:var(--primary);
+}
+
+.dashboard-intro{
+
+display:flex;
+flex-direction:column;
+
+}
+
+.intro-content{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+height:100%;
+
+}
+
+.intro-content img{
+
+width:130px;
+height:130px;
+object-fit:contain;
+margin-bottom:25px;
+
+}
+
+.intro-content h2{
+
+font-size:1.8rem;
+margin-bottom:18px;
+color:var(--text);
+
+}
+
+.intro-content p{
+
+color:var(--muted);
+line-height:1.9;
+max-width:600px;
+margin-bottom:30px;
+
+}
+
+.intro-features{
+
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+
+gap:15px;
+width:100%;
+
+}
+
+.intro-features div{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:18px;
+
+background:
+linear-gradient(
+135deg,
+#eff6ff,
+#f8fafc
+);
+
+border:1px solid var(--border);
+
+border-radius:18px;
+
+font-weight:600;
+
+}
+
+.intro-features i{
+
+font-size:1.3rem;
+color:var(--primary);
+
+}
+
+.search-box{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.search-box input{
+flex:1;
+padding:16px;
+border:1px solid var(--border);
+border-radius:16px;
+outline:none;
+font-size:.95rem;
+transition:.3s;
+}
+
+.search-box input:focus{
+border-color:var(--primary);
+box-shadow:
+0 0 0 4px rgba(37,99,235,.12);
+}
+
+/* ==========================
+BUTTONS
+========================== */
+
+.btn-group{
+display:flex;
+gap:12px;
+margin-top:18px;
+flex-wrap:wrap;
+}
+
+.primary-btn,
+.success-btn,
+.warning-btn,
+.danger-btn{
+border:none;
+padding:14px 18px;
+border-radius:14px;
+cursor:pointer;
+font-size:.95rem;
+font-weight:600;
+transition:.3s;
+}
+
+.primary-btn{
+background:var(--primary);
+color:white;
+display:block;
+margin:20px auto 0;
+min-width:120px;
+}
+
+.primary-btn:hover{
+background:var(--primary-dark);
+transform:translateY(-2px);
+}
+
+.success-btn{
+background:var(--success);
+color:white;
+}
+
+.success-btn:hover{
+transform:translateY(-2px);
+}
+
+.warning-btn{
+background:var(--warning);
+color:white;
+}
+
+.warning-btn:hover{
+transform:translateY(-2px);
+}
+
+.danger-btn{
+background:var(--danger);
+color:white;
+}
+
+.danger-btn:hover{
+transform:translateY(-2px);
+}
+
+/* ==========================
+VISITOR CARD
+========================== */
+
+.visitor-card{
+background:var(--card);
+border-radius:30px;
+box-shadow:var(--shadow);
+padding:35px;
+}
+
+.placeholder{
+text-align:center;
+padding:60px 20px;
+}
+
+.placeholder i{
+font-size:5rem;
+color:var(--primary);
+}
+
+.placeholder h3{
+margin-top:20px;
+color:var(--muted);
+}
+
+.visitor-grid{
+display:grid;
+grid-template-columns:
+300px 1fr;
+gap:30px;
+}
+
+.visitor-photo{
+width:100%;
+border-radius:25px;
+overflow:hidden;
+box-shadow:var(--shadow);
+}
+
+.visitor-photo{
+width:100%;
+max-width:300px;
+margin:auto;
+border-radius:25px;
+overflow:hidden;
+}
+
+.visitor-info{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+}
+
+.info-box{
+padding:18px;
+background:#f8fafc;
+border-radius:18px;
+border:1px solid var(--border);
+}
+
+.info-box label{
+display:block;
+font-size:.8rem;
+color:var(--muted);
+margin-bottom:8px;
+}
+
+.info-box span{
+font-size:1rem;
+font-weight:600;
+word-break:break-word;
+}
+
+.document-box{
+margin-top:25px;
+padding:20px;
+background:#eff6ff;
+border-radius:22px;
+}
+
+.document-box a{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:12px 16px;
+background:var(--primary);
+color:white;
+text-decoration:none;
+border-radius:12px;
+margin-top:12px;
+}
+
+.visitor-actions{
+display:flex;
+gap:15px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+/* ==========================
+STATUS BADGES
+========================== */
+
+.badge{
+display:inline-block;
+padding:8px 14px;
+border-radius:30px;
+font-size:.8rem;
+font-weight:700;
+color:white;
+}
+
+.pending{
+background:var(--warning);
+}
+
+.checkedin{
+background:var(--success);
+}
+
+.completed{
+background:var(--danger);
+}
+
+/* ==========================
+TABLE
+========================== */
+
+.table-wrapper{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:700px;
+}
+
+thead{
+background:#eff6ff;
+}
+
+th,
+td{
+padding:18px;
+text-align:left;
+border-bottom:
+1px solid var(--border);
+}
+
+tbody tr:hover{
+background:#f8fafc;
+}
+
+/* ==========================
+MODAL
+========================== */
+
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:999;
+}
+
+.modal{
+width:100%;
+max-width:420px;
+background:white;
+padding:35px;
+border-radius:30px;
+box-shadow:var(--shadow);
+animation:popup .3s ease;
+}
+
+@keyframes popup{
+
+from{
+opacity:0;
+transform:scale(.85);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+.modal h2{
+margin-bottom:15px;
+text-align:center;
+}
+
+.modal p{
+color:var(--muted);
+line-height:1.7;
+text-align:center;
+margin-bottom:25px;
+}
+
+/* ==========================
+TABLET
+========================== */
+
+@media(max-width:991px){
+
+.topbar{
+padding:18px 25px;
+}
+
+.visitor-grid{
+grid-template-columns:1fr;
+}
+
+.visitor-photo img{
+height:320px;
+}
+
+}
+
+/* ==========================
+MOBILE
+========================== */
+
+@media(max-width:768px){
+
+.topbar{
+flex-direction:column;
+gap:18px;
+text-align:center;
+}
+
+.intro-content img{
+
+width:90px;
+height:90px;
+
+}
+
+.intro-content h2{
+
+font-size:1.4rem;
+
+}
+
+.dashboard{
+width:94%;
+}
+
+.search-panel{
+grid-template-columns:1fr;
+}
+
+.card{
+padding:22px;
+border-radius:24px;
+}
+
+.visitor-card{
+padding:25px;
+}
+
+.visitor-photo img {
+    height: 200px;
+}
+
+.search-box{
+flex-direction:column;
+}
+
+.search-box input{
+width:100%;
+}
+
+.primary-btn,
+.success-btn,
+.warning-btn,
+.danger-btn{
+width:100%;
+}
+
+.btn-group{
+flex-direction:column;
+}
+
+.visitor-actions{
+flex-direction:column;
+}
+
+}
+
+/* ==========================
+MINI DEVICES
+========================== */
+
+@media(max-width:480px){
+
+.brand img{
+width:48px;
+height:48px;
+}
+
+.brand h2{
+font-size:1.1rem;
+}
+
+.card h3{
+font-size:1rem;
+}
+
+#preview{
+height:220px;
+}
+
+.visitor-photo img{
+height:160px;
+}
+
+.info-box{
+padding:15px;
+}
+
+.modal{
+padding:25px;
+}
+
+}
+
+/* =====================================
+SMALL MOBILE FIXES
+===================================== */
+
+@media (max-width:576px){
+
+/* Reduce overall spacing */
+
+.dashboard{
+    width:96%;
+    gap:18px;
+}
+
+.card,
+.visitor-card{
+    padding:18px;
+    border-radius:20px;
+}
+
+/* Header */
+
+.topbar{
+    padding:14px;
+}
+
+.brand{
+    gap:10px;
+}
+
+.brand img{
+    width:42px;
+    height:42px;
+}
+
+.brand h2{
+    font-size:1rem;
+}
+
+.brand p{
+    font-size:.75rem;
+}
+
+/* Dashboard Intro */
+
+.intro-content h2{
+    font-size:1.1rem;
+}
+
+.intro-content p{
+    font-size:.82rem;
+    line-height:1.6;
+}
+
+.intro-features{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.intro-features div{
+    flex-direction:column;
+    text-align:center;
+    gap:8px;
+    padding:14px 10px;
+    font-size:.78rem;
+}
+
+.intro-features i{
+    font-size:1.1rem;
+}
+
+/* Search */
+
+.search-box{
+    flex-direction:column;
+}
+
+.search-box input{
+    width:100%;
+}
+
+.search-box button{
+    width:100%;
+}
+
+/* Visitor Section */
+
+.visitor-grid{
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+/* Photo */
+
+.visitor-photo{
+    max-width:180px;
+    margin:auto;
+}
+
+.visitor-photo img{
+    height:220px;
+    object-fit:cover;
+}
+
+/* Info Boxes */
+
+.visitor-info{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.info-box{
+    padding:12px;
+}
+
+.info-box label{
+    font-size:.72rem;
+}
+
+.info-box span{
+    font-size:.82rem;
+}
+
+/* Document */
+
+.document-box{
+    padding:15px;
+}
+
+.document-box img{
+    width:100%;
+    max-width:100% !important;
+}
+
+/* Actions */
+
+.visitor-actions{
+    flex-direction:column;
+}
+
+.visitor-actions button{
+    width:100%;
+}
+
+/* Logs Table */
+
+th,
+td{
+    padding:12px;
+    font-size:.8rem;
+}
+
+}
+
+@media (max-width:380px){
+
+.intro-features{
+    grid-template-columns:1fr;
+}
+
+.visitor-info{
+    grid-template-columns:1fr;
+}
+
+.brand h2{
+    font-size:.9rem;
+}
+
+.logout-btn{
+    width:100%;
+}
+
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+
+<div class="brand">
+
+<img src="/svg/logo/vms.svg"
+alt="Security">
+
+<div>
+
+<h2>Security Dashboard</h2>
+
+<p id="securityName"></p>
+
+</div>
+
+</div>
+
+<button
+class="logout-btn"
+onclick="logout()">
+
+<i class="bi bi-box-arrow-right"></i>
+Logout
+
+</button>
+
+</header>
+
+<main class="dashboard">
+
+<!-- SEARCH PANEL -->
+
+<section class="search-panel">
+
+<div class="card dashboard-intro">
+
+    <h3>
+
+        <i class="bi bi-shield-check"></i>
+
+        Dashboard Overview
+
+    </h3>
+
+    <div class="intro-content">
+
+        <img
+        src="/SVG/logo/secure-login.svg"
+        alt="Security Dashboard">
+
+        <h2>
+
+            Welcome Security Officer
+
+        </h2>
+
+        <p>
+
+            This dashboard allows authorized security personnel to verify visitors, monitor visit activity and perform secure Check-In and Check-Out operations.
+
+        </p>
+
+        <div class="intro-features">
+
+            <div>
+
+                <i class="bi bi-search"></i>
+
+                <span>
+                    Search Visitor Pass
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-person-badge"></i>
+
+                <span>
+                    Verify Visitor Identity
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-box-arrow-in-right"></i>
+
+                <span>
+                    Manage Check-In / Check-Out
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-clock-history"></i>
+
+                <span>
+                    Monitor Visit Logs
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+<i class="bi bi-search"></i>
+Search Pass ID
+
+</h3>
+
+<div class="search-box">
+
+<input
+type="text"
+id="passId"
+placeholder="Enter Pass ID">
+
+<button
+class="primary-btn"
+onclick="fetchVisitor()">
+
+Fetch Details
+
+</button>
+
+</div><br>
+
+<div class="intro-features">
+
+            <div>
+
+                <i class="bi bi-clock-history"></i>
+
+                <span>
+                     Be available for the visitor on time
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-door-open"></i>
+
+                <span>
+                    Welcome Visitors and Always use Formal Language
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-search"></i>
+
+                <span>
+                    Enter Pass ID to Fetch Visitor Details
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-person-badge"></i>
+
+                <span>
+                    Match Visitor Photo and Identity Proof 
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-info-circle-fill"></i>
+
+                <span>
+                    Immediately inform Admins about Visitor Arrival 
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-person-workspace"></i>
+
+                <span>
+                    Ask Visitor to entry his info in Register
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-person-badge-fill"></i>
+
+                <span>
+                    Give Visitor ID card to Visitor
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-signpost-split-fill"></i>
+
+                <span>
+                    Show directions to the Visitors to his destination
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-hand-index-thumb"></i>
+
+                <span>
+                    Ask Visitor to Return Visitor ID during Check Out
+                </span>
+
+            </div>
+
+            <div>
+
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+
+                <span>
+                    Respectivefully give departure to the Visitor
+                </span>
+
+            </div>
+
+        </div>
+
+</div>
+
+</section>
+
+
+<!-- VISITOR DETAILS -->
+
+<section
+class="visitor-section">
+
+<div
+class="visitor-card"
+id="visitorCard">
+
+<div class="placeholder">
+
+<i class="bi bi-person-vcard"></i>
+
+<h3>
+
+Enter Pass ID to Fetch Visitor Details
+
+</h3>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LOGS -->
+
+<section class="logs-section">
+
+<div class="card">
+
+<h3>
+
+<i class="bi bi-clock-history"></i>
+
+Today's Logs
+
+</h3>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Pass ID</th>
+
+<th>Name</th>
+
+<th>Check In</th>
+
+<th>Check Out</th>
+
+</tr>
+
+</thead>
+
+<tbody id="logsBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- CUSTOM MODAL -->
+
+<div
+class="modal-overlay"
+id="modalOverlay">
+
+<div class="modal">
+
+<h2 id="modalTitle"></h2>
+
+<p id="modalMessage"></p>
+
+<button
+class="primary-btn"
+onclick="closeModal()">
+
+OK
+
+</button>
+
+</div>
+
+</div>
+<script>
+// public/Security/dashboard.js
+
+let codeReader = null;
+
+const sessionId =
+    new URLSearchParams(
+        location.search
+    ).get('session_id');
+
+const securityUser =
+    JSON.parse(
+        localStorage.getItem(
+            'security_user'
+        )
+    );
+
+// ======================================
+// INITIALIZATION
+// ======================================
+
+window.addEventListener(
+    'DOMContentLoaded',
+    async () => {
+
+        if (!sessionId) {
+
+            location.href =
+                '/security/index.html';
+
+            return;
+        }
+
+        await validateSession();
+
+        document.getElementById(
+            'securityName'
+        ).innerText =
+            `${securityUser?.emp_name || ''} (${securityUser?.emp_id || ''})`;
+
+        loadLogs();
+    }
+);
+
+
+// ======================================
+// SESSION VALIDATION
+// ======================================
+
+async function validateSession() {
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/security/validate-session/${sessionId}`
+            );
+
+        const data =
+            await response.json();
+
+        if (!data.success) {
+
+            localStorage.clear();
+
+            location.href =
+                '/security/index.html';
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        location.href =
+            '/security/index.html';
+    }
+}
+
+document.getElementById('passId').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        fetchVisitor();
+    }
+});
+
+// ======================================
+// FETCH VISITOR
+// ======================================
+
+async function fetchVisitor() {
+
+    try {
+
+        const passId =
+            document.getElementById(
+                'passId'
+            ).value.trim();
+
+        if (!passId) {
+
+            return showModal(
+                'Validation Error',
+                'Please enter Pass ID.'
+            );
+        }
+
+        const response =
+            await fetch(
+
+                `/api/security/visitor/${passId}?session_id=${sessionId}`
+            );
+
+        const data =
+            await response.json();
+
+        if (!data.success) {
+
+            return showModal(
+                'Visitor Not Found',
+                data.message
+            );
+        }
+
+        renderVisitor(
+            data.visitor
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        showModal(
+            'Network Error',
+            error.message
+        );
+    }
+}
+
+
+// ======================================
+// RENDER VISITOR
+// ======================================
+
+function renderVisitor(v) {
+
+    const container =
+        document.getElementById(
+            'visitorCard'
+        );
+
+    const isPdf =
+        v.identity_proof_path
+            ?.toLowerCase()
+            .endsWith('.pdf');
+
+    let actionButtons = '';
+
+    if (!v.check_in_time) {
+
+        actionButtons = `
+
+            <button
+            class="success-btn"
+            onclick="checkIn('${v.pass_number}')">
+
+                <i class="bi bi-box-arrow-in-right"></i>
+                Check In
+
+            </button>
+        `;
+    }
+
+    else if (
+        v.check_in_time &&
+        !v.check_out_time
+    ) {
+
+        actionButtons = `
+
+            <button
+            class="warning-btn"
+            onclick="checkOut('${v.pass_number}')">
+
+                <i class="bi bi-box-arrow-right"></i>
+                Check Out
+
+            </button>
+        `;
+    }
+
+    else {
+
+        actionButtons = `
+
+            <span
+            class="badge completed">
+
+                Visit Completed
+
+            </span>
+        `;
+    }
+
+    container.innerHTML = `
+
+    <div class="visitor-grid">
+
+        <div>
+
+            <div class="visitor-photo">
+
+                <img
+                src="/${v.photo_path}"
+                alt="Visitor">
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <div class="visitor-info">
+
+                ${infoBox(
+                    'Visitor Name',
+                    v.full_name
+                )}
+
+                ${infoBox(
+                    'Pass ID',
+                    v.pass_number
+                )}
+
+                ${infoBox(
+                    'Email',
+                    v.email
+                )}
+
+                ${infoBox(
+                    'Contact',
+                    v.contact_number
+                )}
+
+                ${infoBox(
+                    'Identity Type',
+                    v.identity_type
+                )}
+
+                ${infoBox(
+                    'Identity Number',
+                    v.identity_number
+                )}
+
+                ${infoBox(
+                    'Employee',
+                    v.host_employee_name
+                )}
+
+                ${infoBox(
+                    'Department',
+                    v.host_department
+                )}
+
+                ${infoBox(
+                    'Visit Date',
+                    formatDate(
+                        v.visit_date
+                    )
+                )}
+
+                ${infoBox(
+                    'Visit Time',
+                    v.visit_time
+                )}
+
+                ${infoBox(
+                    'Check In',
+                    v.check_in_time
+                    ? formatDateTime(
+                        v.check_in_time
+                    )
+                    : 'Pending'
+                )}
+
+                ${infoBox(
+                    'Check Out',
+                    v.check_out_time
+                    ? formatDateTime(
+                        v.check_out_time
+                    )
+                    : 'Pending'
+                )}
+
+            </div>
+
+            <div class="document-box">
+
+                <h3>
+
+                    <i class="bi bi-file-earmark-text"></i>
+                    Identity Document
+
+                </h3>
+
+                ${
+                    isPdf
+
+                    ?
+
+                    `<a
+                    href="/${v.identity_proof_path}"
+                    target="_blank">
+
+                    <i class="bi bi-file-pdf"></i>
+                    View PDF
+
+                    </a>`
+
+                    :
+
+                    `<img
+                    src="/${v.identity_proof_path}"
+                    style="
+                    width:100%;
+                    max-width:320px;
+                    border-radius:18px;
+                    margin-top:15px;">`
+                }
+
+            </div>
+
+            <div class="visitor-actions">
+
+                ${actionButtons}
+
+            </div>
+
+        </div>
+
+    </div>
+    `;
+}
+
+function infoBox(
+    label,
+    value
+) {
+
+    return `
+
+        <div class="info-box">
+
+            <label>
+
+                ${label}
+
+            </label>
+
+            <span>
+
+                ${value || 'N/A'}
+
+            </span>
+
+        </div>
+    `;
+}
+
+
+// ======================================
+// CHECK IN
+// ======================================
+
+async function checkIn(passId) {
+
+    if (
+        !confirm(
+            'Check In Visitor?'
+        )
+    ) return;
+
+    try {
+
+        const response =
+            await fetch(
+
+                `/api/security/check-in/${passId}?session_id=${sessionId}`,
+
+                {
+                    method:'POST'
+                }
+            );
+
+        const data =
+            await response.json();
+
+        showModal(
+            'Check In',
+            data.message
+        );
+
+        fetchVisitor();
+
+        loadLogs();
+
+    } catch (error) {
+
+        showModal(
+            'Error',
+            error.message
+        );
+    }
+}
+
+
+// ======================================
+// CHECK OUT
+// ======================================
+
+async function checkOut(passId) {
+
+    if (
+        !confirm(
+            'Check Out Visitor?'
+        )
+    ) return;
+
+    try {
+
+        const response =
+            await fetch(
+
+                `/api/security/check-out/${passId}?session_id=${sessionId}`,
+
+                {
+                    method:'POST'
+                }
+            );
+
+        const data =
+            await response.json();
+
+        showModal(
+            'Check Out',
+            data.message
+        );
+
+        fetchVisitor();
+
+        loadLogs();
+
+    } catch (error) {
+
+        showModal(
+            'Error',
+            error.message
+        );
+    }
+}
+
+
+// ======================================
+// LOGS
+// ======================================
+
+async function loadLogs() {
+
+    try {
+
+        const response =
+            await fetch(
+
+                `/api/security/logs?session_id=${sessionId}`
+            );
+
+        const data =
+            await response.json();
+
+        if (!data.success) return;
+
+        const tbody =
+            document.getElementById(
+                'logsBody'
+            );
+
+        tbody.innerHTML = '';
+
+        data.logs.forEach(
+            log => {
+
+                tbody.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${log.pass_number}
+                    </td>
+
+                    <td>
+                        ${log.full_name}
+                    </td>
+
+                    <td>
+                        ${
+                            log.check_in_time
+                            ?
+                            formatDateTime(
+                                log.check_in_time
+                            )
+                            :
+                            '-'
+                        }
+                    </td>
+
+                    <td>
+                        ${
+                            log.check_out_time
+                            ?
+                            formatDateTime(
+                                log.check_out_time
+                            )
+                            :
+                            '-'
+                        }
+                    </td>
+
+                </tr>
+                `;
+            });
+
+    } catch (error) {
+
+        console.error(error);
+    }
+}
+
+
+// ======================================
+// LOGOUT
+// ======================================
+
+async function logout() {
+
+    if (
+        !confirm(
+            'Logout?'
+        )
+    ) return;
+
+    await fetch(
+        '/api/security/logout',
+        {
+            method:'POST',
+
+            headers:{
+                'Content-Type':
+                    'application/json'
+            },
+
+            body:JSON.stringify({
+
+                emp_id:
+                    securityUser.emp_id
+            })
+        }
+    );
+
+    localStorage.clear();
+
+    location.href =
+        '/security/index.html';
+}
+
+
+// ======================================
+// CUSTOM MODAL
+// ======================================
+
+function showModal(
+    title,
+    message
+){
+
+    document.getElementById(
+        'modalTitle'
+    ).innerText = title;
+
+    document.getElementById(
+        'modalMessage'
+    ).innerText = message;
+
+    document.getElementById(
+        'modalOverlay'
+    ).style.display = 'flex';
+}
+
+function closeModal(){
+
+    document.getElementById(
+        'modalOverlay'
+    ).style.display='none';
+}
+
+
+// ======================================
+// HELPERS
+// ======================================
+
+function formatDate(date){
+
+    return new Date(
+        date
+    ).toLocaleDateString();
+}
+
+function formatDateTime(date){
+
+    return new Date(
+        date
+    ).toLocaleString();
+}
+</script>
+</body>
+</html>

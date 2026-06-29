@@ -1,0 +1,745 @@
+<!-- public/Admins/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Administrator Login | Visitor Management System
+    </title>
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Geneva,
+                Verdana,
+                sans-serif;
+        }
+
+        :root {
+
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+
+            --success: #16a34a;
+
+            --danger: #dc2626;
+
+            --warning: #f59e0b;
+
+            --text: #0f172a;
+
+            --muted: #64748b;
+
+            --bg: #f1f5f9;
+
+            --card: #ffffff;
+
+            --border: #e2e8f0;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(135deg,
+                    #dbeafe,
+                    #f8fafc);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .login-container {
+
+            width: 100%;
+
+            max-width: 450px;
+
+            background: white;
+
+            border-radius: 30px;
+
+            padding: 40px 35px;
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, .08);
+
+            animation:
+                fadeIn .5s ease;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
+        .logo {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+        .logo img {
+
+            width: 90px;
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: var(--text);
+
+            margin-bottom: 10px;
+
+            font-size: 2rem;
+        }
+
+        .subtitle {
+
+            text-align: center;
+
+            color: var(--muted);
+
+            margin-bottom: 35px;
+
+            line-height: 1.5;
+        }
+
+        .form-group {
+
+            margin-bottom: 20px;
+        }
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: var(--text);
+
+            font-weight: 600;
+        }
+
+        .input-box {
+
+            position: relative;
+        }
+
+        .input-box i {
+
+            position: absolute;
+
+            left: 16px;
+
+            top: 17px;
+
+            color: var(--muted);
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 14px 16px 14px 48px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition: .3s;
+        }
+
+        input:focus {
+
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 4px rgba(37, 99, 235, .15);
+        }
+
+        .btn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            cursor: pointer;
+
+            background: var(--primary);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: .3s;
+        }
+
+        .btn:hover {
+
+            background: var(--primary-dark);
+
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+
+            opacity: .6;
+
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 30px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        /* =======================
+            CUSTOM MODAL
+        ======================= */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, .6);
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 999;
+        }
+
+        .modal {
+
+            width: 95%;
+
+            max-width: 420px;
+
+            background: white;
+
+            border-radius: 25px;
+
+            padding: 30px;
+
+            animation: pop .3s ease;
+        }
+
+        @keyframes pop {
+
+            from {
+                transform: scale(.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal h2 {
+
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+
+            color: var(--muted);
+
+            margin-bottom: 25px;
+
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .modal-actions button {
+
+            flex: 1;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+        }
+
+        .primary {
+
+            background: var(--primary);
+
+            color: white;
+        }
+
+        .secondary {
+
+            background: #e2e8f0;
+        }
+
+        .learn {
+
+            background: var(--warning);
+
+            color: white;
+        }
+
+        @media(max-width:480px) {
+
+            .login-container {
+
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="logo">
+
+            <!-- Put your local SVG here -->
+
+            <img src="/svg/logo/vms.svg"
+                alt="VMS Logo">
+
+        </div>
+
+        <h1>Administrator Login</h1>
+
+        <p class="subtitle">
+            Secure access requires email,
+            password and OTP verification.
+        </p>
+
+        <!-- LOGIN FORM -->
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label>Email Address</label>
+
+                <div class="input-box">
+
+                    <i class="bi bi-envelope"></i>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter administrator email"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <div class="input-box">
+
+                    <i class="bi bi-lock"></i>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter administrator password"
+                        required>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn"
+                id="loginBtn">
+
+                <i class="bi bi-shield-lock"></i>
+                Send OTP
+
+            </button>
+
+        </form>
+
+        <!-- OTP FORM -->
+
+        <form
+            id="otpForm"
+            class="hidden">
+
+            <div class="form-group">
+
+                <label>Enter OTP</label>
+
+                <div class="input-box">
+
+                    <i class="bi bi-key"></i>
+
+                    <input
+                        type="text"
+                        id="otp"
+                        maxlength="6"
+                        placeholder="6 digit OTP"
+                        required>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn"
+                id="otpBtn">
+
+                Verify OTP
+
+            </button>
+
+        </form>
+
+        <div class="footer">
+
+            Visitor Management System © 2025
+
+        </div>
+
+    </div>
+
+
+    <!-- CUSTOM MODAL -->
+
+    <div
+        class="modal-overlay"
+        id="modalOverlay">
+
+        <div class="modal">
+
+            <h2 id="modalTitle"></h2>
+
+            <p id="modalMessage"></p>
+
+            <div class="modal-actions">
+
+                <button
+                    class="primary"
+                    onclick="closeModal()">
+
+                    OK
+
+                </button>
+
+                <button
+                    class="learn"
+                    id="learnBtn">
+
+                    Learn More
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const loginForm =
+            document.getElementById('loginForm');
+
+        const otpForm =
+            document.getElementById('otpForm');
+
+        let adminEmail = '';
+
+        // =====================
+        // CUSTOM ALERT
+        // =====================
+
+        function showModal(
+            title,
+            message,
+            learnMore = '#'
+        ) {
+
+            document.getElementById(
+                'modalTitle'
+            ).textContent = title;
+
+            document.getElementById(
+                'modalMessage'
+            ).textContent = message;
+
+            document.getElementById(
+                'learnBtn'
+            ).onclick = () =>
+                window.open(
+                    learnMore,
+                    '_blank'
+                );
+
+            document.getElementById(
+                'modalOverlay'
+            ).style.display = 'flex';
+        }
+
+        function closeModal() {
+
+            document.getElementById(
+                'modalOverlay'
+            ).style.display = 'none';
+        }
+
+        // =====================
+        // LOGIN
+        // =====================
+
+        loginForm.addEventListener(
+            'submit',
+            async e => {
+
+                e.preventDefault();
+
+                const email =
+                    document.getElementById(
+                        'email'
+                    ).value.trim();
+
+                const password =
+                    document.getElementById(
+                        'password'
+                    ).value.trim();
+
+                if (!email || !password) {
+
+                    return showModal(
+                        'Validation Error',
+                        'All fields are required.',
+                        '/docs/form-validation.html'
+                    );
+                }
+
+                try {
+
+                    const response =
+                        await fetch(
+                            '/api/admin/login',
+                            {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-Type':
+                                        'application/json'
+                                },
+
+                                body: JSON.stringify({
+                                    email,
+                                    password
+                                })
+                            });
+
+                    const data =
+                        await response.json();
+
+                    if (!data.success) {
+
+                        return showModal(
+                            data.title,
+                            data.message,
+                            data.learnMore
+                        );
+                    }
+
+                    adminEmail = email;
+
+                    loginForm.classList
+                        .add('hidden');
+
+                    otpForm.classList
+                        .remove('hidden');
+
+                    showModal(
+                        data.title,
+                        data.message,
+                        data.learnMore
+                    );
+
+                } catch (error) {
+
+                    showModal(
+                        'Network Error',
+                        error.message
+                    );
+                }
+            });
+
+        // =====================
+        // OTP VERIFY
+        // =====================
+
+        otpForm.addEventListener(
+            'submit',
+            async e => {
+
+                e.preventDefault();
+
+                const otp =
+                    document.getElementById(
+                        'otp'
+                    ).value.trim();
+
+                if (!/^\d{6}$/.test(otp)) {
+
+                    return showModal(
+                        'Invalid OTP',
+                        'Please enter a valid 6 digit OTP.'
+                    );
+                }
+
+                try {
+
+                    const response =
+                        await fetch(
+                            '/api/admin/verify-otp',
+                            {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-Type':
+                                        'application/json'
+                                },
+
+                                body: JSON.stringify({
+                                    email: adminEmail,
+                                    otp
+                                })
+                            });
+
+                    const data =
+                        await response.json();
+
+                    if (!data.success) {
+
+                        return showModal(
+                            data.title,
+                            data.message,
+                            data.learnMore
+                        );
+                    }
+
+                    localStorage.setItem(
+                        'vms_session_id',
+                        data.session.session_id
+                    );
+
+                    localStorage.setItem(
+                        'vms_admin',
+                        JSON.stringify(
+                            data.session
+                        )
+                    );
+
+                    showModal(
+                        data.title,
+                        'Redirecting to dashboard...',
+                        data.learnMore
+                    );
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            data.redirect;
+
+                    }, 1500);
+
+                } catch (error) {
+
+                    showModal(
+                        'Network Error',
+                        error.message
+                    );
+                }
+            });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Visitor Request Portal | VMS</title>
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --text: #0f172a;
+            --muted: #64748b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eff6ff, #f8fafc);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: min(95%, 1100px);
+            margin: auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 10px;
+        }
+
+        .hero img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,
+                    minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field label {
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .field input,
+        .field select {
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .upload-box {
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .upload-box i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .preview img {
+            max-width: 160px;
+            border-radius: 12px;
+            border: 3px solid #ddd;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 30px;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: var(--primary);
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+        }
+
+        @media(max-width:480px) {
+
+            .card {
+                padding: 20px;
+            }
+
+            button {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <section class="hero">
+
+            <img src="../SVG/logo/vms.svg"
+                alt="VMS Logo">
+
+            <h1>Visitor Request Portal</h1>
+
+            <p>
+                Submit your visit request securely.
+                Once approved, you will receive
+                a unique pass id - enabled visitor pass via email.
+            </p>
+
+        </section>
+
+        <div class="card">
+
+            <form id="visitorForm"
+                enctype="multipart/form-data">
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label>
+                            <i class="bi bi-person"></i>
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="full_name"
+                            required>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Identity Type
+                        </label>
+
+                        <select
+                            name="identity_type"
+                            required>
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                AADHAR
+                            </option>
+
+                            <option>
+                                PASSPORT
+                            </option>
+
+                            <option>
+                                DRIVING_LICENSE
+                            </option>
+
+                            <option>
+                                VOTER_ID
+                            </option>
+
+                            <option>
+                                PAN_CARD
+                            </option>
+
+                            <option>
+                                OTHER
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Identity Number
+                        </label>
+
+                        <input
+                            type="text"
+                            name="identity_number"
+                            required>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            required>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Contact Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="contact_number"
+                            pattern="[0-9]{10,15}"
+                            required>
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+                            Purpose of Visit
+                        </label>
+
+                        <textarea
+                            id="purpose"
+                            name="purpose"
+                            class="form-control"
+                            rows="3"
+                            maxlength="255"
+                            placeholder="Example: Meeting HR regarding internship discussion"
+                            required>
+
+                        </textarea>
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="form-grid">
+
+                    <div class="upload-box">
+
+                        <i class="bi bi-camera"></i>
+
+                        <h3>Visitor Photo</h3>
+
+                        <input
+                            type="file"
+                            id="photo"
+                            name="photo"
+                            accept="image/*"
+                            capture="user"
+                            required>
+
+                        <div class="preview"
+                            id="photoPreview">
+                        </div>
+
+                    </div>
+
+                    <div class="upload-box">
+
+                        <i class="bi bi-card-text"></i>
+
+                        <h3>Identity Proof</h3>
+
+                        <input
+                            type="file"
+                            id="identityProof"
+                            name="identityProof"
+                            accept=".jpg,.jpeg,.png,.pdf"
+                            required>
+
+                        <div class="preview"
+                            id="identityPreview">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button type="submit"
+                    id="submitBtn">
+
+                    <i class="bi bi-send"></i>
+                    Submit Visitor Request
+
+                </button>
+
+                <div id="message"
+                    class="message"></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <footer>
+        © 2025 Visitor Management System
+    </footer>
+
+    <script>
+
+        const form =
+            document.getElementById('visitorForm');
+
+        const messageBox =
+            document.getElementById('message');
+
+        const submitBtn =
+            document.getElementById('submitBtn');
+
+        const purpose =
+            document
+                .getElementById('purpose')
+                .value
+                .trim();
+
+        function previewImage(input, containerId) {
+
+            const container =
+                document.getElementById(containerId);
+
+            container.innerHTML = '';
+
+            if (!input.files.length) return;
+
+            const file = input.files[0];
+
+            if (file.type.includes('image')) {
+
+                const img =
+                    document.createElement('img');
+
+                img.src =
+                    URL.createObjectURL(file);
+
+                container.appendChild(img);
+
+            } else {
+
+                container.innerHTML =
+                    `<p><i class="bi bi-file-earmark-pdf"></i> ${file.name}</p>`;
+            }
+        }
+
+        document
+            .getElementById('photo')
+            .addEventListener('change', e => {
+                previewImage(e.target,
+                    'photoPreview');
+            });
+
+        document
+            .getElementById('identityProof')
+            .addEventListener('change', e => {
+                previewImage(e.target,
+                    'identityPreview');
+            });
+
+        form.addEventListener('submit',
+            async (e) => {
+
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML =
+                    'Submitting...';
+
+                messageBox.style.display =
+                    'none';
+
+                try {
+
+                    const formData =
+                        new FormData(form);
+
+                    const response =
+                        await fetch(
+                            '/api/visitor/request',
+                            {
+                                method: 'POST',
+                                body: formData
+                            });
+
+                    const data =
+                        await response.json();
+
+                    if (!response.ok)
+                        throw new Error(
+                            data.message);
+
+                    messageBox.className =
+                        'message success';
+
+                    messageBox.innerHTML =
+                        `<i class="bi bi-check-circle"></i>
+                        Request submitted successfully.
+                        Please wait for administrator approval.`;
+
+                    form.reset();
+
+                    document.getElementById(
+                        'photoPreview'
+                    ).innerHTML = '';
+
+                    document.getElementById(
+                        'identityPreview'
+                    ).innerHTML = '';
+
+                }
+
+                catch (error) {
+
+                    messageBox.className =
+                        'message error';
+
+                    messageBox.innerHTML =
+                        `<i class="bi bi-exclamation-triangle"></i>
+                        ${error.message}`;
+                }
+
+                messageBox.style.display =
+                    'block';
+
+                submitBtn.disabled = false;
+
+                submitBtn.innerHTML =
+                    `<i class="bi bi-send"></i>
+                    Submit Visitor Request`;
+
+            });
+
+    </script>
+
+</body>
+
+</html>
