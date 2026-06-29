@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>OTP Troubleshooting | Visitor Management System</title>
+
+<meta name="description"
+content="Troubleshooting guide for One-Time Password (OTP) issues in Visitor Management System.">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+:root{
+
+--primary:#2563eb;
+--secondary:#7c3aed;
+--success:#16a34a;
+--warning:#f59e0b;
+
+--dark:#0f172a;
+--text:#334155;
+--muted:#64748b;
+
+--bg:#f8fafc;
+--card:#ffffff;
+
+--border:#e2e8f0;
+
+--shadow:
+0 10px 35px rgba(15,23,42,.08);
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#eff6ff,
+#f8fafc,
+#fefce8
+);
+
+color:var(--text);
+
+}
+
+.container{
+
+width:min(92%,1100px);
+margin:auto;
+
+}
+
+/* HERO */
+
+.hero{
+
+padding:70px 0 50px;
+
+}
+
+.hero-box{
+
+background:#fff;
+
+border-radius:30px;
+
+padding:50px;
+
+box-shadow:var(--shadow);
+
+text-align:center;
+
+}
+
+.hero-box img{
+
+width:110px;
+height:110px;
+
+margin-bottom:20px;
+
+}
+
+.hero-box h1{
+
+font-size:2.5rem;
+
+color:var(--dark);
+
+margin-bottom:15px;
+
+}
+
+.hero-box p{
+
+font-size:1.1rem;
+
+color:var(--muted);
+
+line-height:1.8;
+
+}
+
+/* BLOG */
+
+.blog-section{
+
+padding:40px 0 70px;
+
+}
+
+.blog-card{
+
+background:var(--card);
+
+border-radius:30px;
+
+padding:45px;
+
+box-shadow:var(--shadow);
+
+}
+
+.blog-card h2{
+
+color:var(--dark);
+
+margin-bottom:25px;
+
+font-size:1.9rem;
+
+}
+
+.blog-card p{
+
+line-height:2;
+
+font-size:1.05rem;
+
+margin-bottom:30px;
+
+}
+
+.blog-list{
+
+list-style:none;
+
+}
+
+.blog-list li{
+
+display:flex;
+
+align-items:flex-start;
+
+gap:15px;
+
+padding:15px 0;
+
+border-bottom:
+1px solid var(--border);
+
+line-height:1.8;
+
+}
+
+.blog-list li i{
+
+font-size:1.2rem;
+
+color:var(--warning);
+
+margin-top:4px;
+
+}
+
+/* BUTTONS */
+
+.action-buttons{
+
+margin-top:50px;
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.action-btn{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:15px 28px;
+
+border-radius:16px;
+
+font-weight:600;
+
+text-decoration:none;
+
+transition:.3s;
+
+box-shadow:var(--shadow);
+
+}
+
+.back{
+
+background:#fff;
+color:var(--dark);
+
+}
+
+.home{
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#7c3aed
+);
+
+color:#fff;
+
+}
+
+.portal{
+
+background:
+linear-gradient(
+135deg,
+#16a34a,
+#15803d
+);
+
+color:#fff;
+
+}
+
+.action-btn:hover{
+
+transform:
+translateY(-5px);
+
+}
+
+/* FOOTER */
+
+footer{
+
+padding:40px 0;
+
+text-align:center;
+
+color:var(--muted);
+
+font-size:.95rem;
+
+}
+
+/* TABLET */
+
+@media(max-width:992px){
+
+.hero-box h1{
+
+font-size:2rem;
+
+}
+
+.blog-card{
+
+padding:35px;
+
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero{
+
+padding:40px 0 25px;
+
+}
+
+.hero-box{
+
+padding:35px 25px;
+
+}
+
+.hero-box h1{
+
+font-size:1.7rem;
+
+}
+
+.hero-box img{
+
+width:85px;
+height:85px;
+
+}
+
+.blog-card{
+
+padding:25px;
+
+}
+
+.blog-card h2{
+
+font-size:1.5rem;
+
+}
+
+.blog-card p{
+
+font-size:.96rem;
+
+}
+
+.action-buttons{
+
+flex-direction:column;
+
+}
+
+.action-btn{
+
+justify-content:center;
+
+width:100%;
+
+}
+
+}
+
+/* SMARTBOARD */
+
+@media(min-width:1800px){
+
+.container{
+
+max-width:1500px;
+
+}
+
+.hero-box h1{
+
+font-size:3.2rem;
+
+}
+
+.blog-card{
+
+font-size:1.15rem;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-box">
+
+<img
+src="/SVG/logo/secure-login.svg"
+alt="OTP Troubleshooting">
+
+<h1>
+
+OTP Troubleshooting Guide
+
+</h1>
+
+<p>
+
+Having trouble receiving or verifying your One-Time Password? Follow the instructions below to resolve common OTP-related issues.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="blog-section">
+
+<div class="container">
+
+<div class="blog-card">
+
+<h2>
+
+<i class="bi bi-shield-exclamation"></i>
+
+Common OTP Issues & Solutions
+
+</h2>
+
+<p>
+
+The Visitor Management System uses email-based One-Time Passwords (OTP) as an additional security layer. Occasionally, administrators or security personnel may face delays or validation errors. Most OTP issues can be resolved quickly by following the recommended troubleshooting steps below.
+
+</p>
+
+<ul class="blog-list">
+
+<li>
+
+<i class="bi bi-envelope-x-fill"></i>
+
+<span>
+
+If no OTP email is received, check your Spam, Junk, Promotions, or Updates folder before requesting a new OTP.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-clock-history"></i>
+
+<span>
+
+Wait for at least 2 to 3 minutes as email delivery may occasionally experience temporary delays.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-arrow-repeat"></i>
+
+<span>
+
+If the OTP expires, return to the login page and initiate a fresh login attempt to generate a new OTP.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-123"></i>
+
+<span>
+
+Ensure the OTP is entered exactly as received. Avoid adding extra spaces before or after the code.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-envelope-check-fill"></i>
+
+<span>
+
+Verify that you are using the correct registered email address associated with your account.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-wifi-off"></i>
+
+<span>
+
+Check your internet connectivity if the verification process appears unresponsive or delayed.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-exclamation-circle-fill"></i>
+
+<span>
+
+Repeated invalid attempts may require restarting the authentication process for security reasons.
+
+</span>
+
+</li>
+
+<li>
+
+<i class="bi bi-headset"></i>
+
+<span>
+
+If issues persist after multiple attempts, contact the system administrator or IT support team.
+
+</span>
+
+</li>
+
+</ul>
+
+
+<div class="action-buttons">
+
+<a href="javascript:history.back()"
+class="action-btn back">
+
+<i class="bi bi-arrow-left-circle-fill"></i>
+
+<span>
+
+Go Back
+
+</span>
+
+</a>
+
+
+<a href="https://visitor-management-system-ilux.onrender.com/"
+class="action-btn home">
+
+<i class="bi bi-house-door-fill"></i>
+
+<span>
+
+Home
+
+</span>
+
+</a>
+
+
+<a href="https://visitor-management-system-ilux.onrender.com/Admins/index.html"
+class="action-btn portal">
+
+<i class="bi bi-shield-lock-fill"></i>
+
+<span>
+
+Admin Portal
+
+</span>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<div class="container">
+
+Visitor Management System • OTP Support Documentation
+
+</div>
+
+</footer>
+
+</body>
+
+</html>
