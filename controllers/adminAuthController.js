@@ -219,7 +219,7 @@ exports.verifyOTP = async (req, res) => {
                     'The OTP has expired. Please login again.',
 
                 learnMore:
-                    '/docs/otp-expired.html'
+                    '/docs/otp-verification.html'
             });
         }
 
@@ -237,7 +237,7 @@ exports.verifyOTP = async (req, res) => {
                     'The entered OTP is incorrect.',
 
                 learnMore:
-                    '/docs/otp-help.html'
+                    '/docs/otp-verification.html'
             });
         }
 
@@ -366,7 +366,7 @@ exports.validateSession = async (req, res) => {
                     'The supplied session is invalid.',
 
                 learnMore:
-                    '/docs/session-validation.html'
+                    '/docs/session-expired.html'
             });
         }
 
@@ -448,7 +448,7 @@ exports.logout = async (req, res) => {
                 'Administrator logged out successfully.',
 
             learnMore:
-                '/docs/logout.html'
+                '/docs/session-expired.html'
         });
 
     } catch (error) {
