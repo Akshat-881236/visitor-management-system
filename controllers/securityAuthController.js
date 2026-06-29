@@ -277,7 +277,7 @@ exports.verifyOTP =
                 ],
 
                 redirect:
-                    `/security/dashboard.html?session_id=${sessionId}`
+                    `/Security/dashboard.html?session_id=${sessionId}`
             });
 
         } catch (error) {
