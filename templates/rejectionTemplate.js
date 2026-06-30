@@ -39,7 +39,7 @@ We regret to inform you that your visitor request could not be approved.
 
 </div>
 
-<p>You can send Request again ( prefer after few days ) by using <a href="https://visitor-management-system-ilux.onrender.com/Visitor/index.html"
+<p>You can send Request again ( prefer after few days ) by using our <br><br><a href="https://visitor-management-system-ilux.onrender.com/Visitor/index.html"
 style="
 background:#F59E0B;
 color:#ffffff;
