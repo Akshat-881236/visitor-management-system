@@ -31,9 +31,6 @@ app.use(cookieParser());
 // Public HTML/CSS/JS
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Uploaded Files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 // SVG Files
 app.use('/svg', express.static(path.join(__dirname, 'SVG')));
 

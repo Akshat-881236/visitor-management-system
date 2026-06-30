@@ -61,6 +61,20 @@ exports.createVisitorRequest = async (req, res) => {
             });
         }
 
+        console.log(
+
+            'Photo URL:',
+
+            req.files?.photo?.[0]?.path
+        );
+
+        console.log(
+
+            'Identity URL:',
+
+            req.files?.identityProof?.[0]?.path
+        );
+
         // =====================================
         // VISITOR ID
         // =====================================

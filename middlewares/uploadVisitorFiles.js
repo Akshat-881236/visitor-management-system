@@ -1,55 +1,119 @@
-const multer = require('multer');
-const path = require('path');
+const multer =
+    require('multer');
 
-const storage = multer.diskStorage({
+const {
+    CloudinaryStorage
+} = require(
+    'multer-storage-cloudinary'
+);
 
-    destination: (req, file, cb) => {
+const cloudinary =
+    require('../config/cloudinary');
 
-        if (file.fieldname === 'photo') {
-            cb(null, 'uploads/photo');
+const storage =
+    new CloudinaryStorage({
+
+        cloudinary,
+
+        params:
+            async (req, file) => {
+
+                if (
+                    file.fieldname === 'photo'
+                ) {
+
+                    return {
+
+                        folder: 'vms/photo',
+
+                        resource_type: 'image',
+
+                        type: 'upload', // PUBLIC
+
+                        public_id:
+                            Date.now() +
+                            '-' +
+                            Math.round(
+                                Math.random() * 1E9
+                            )
+                    };
+                }
+
+                return {
+
+                    folder: 'vms/identity',
+
+                    resource_type:
+
+                        file.mimetype ===
+                        'application/pdf'
+
+                        ? 'raw'
+                        : 'image',
+
+                    type: 'private',
+
+                    public_id:
+                        Date.now() +
+                        '-' +
+                        Math.round(
+                            Math.random() * 1E9
+                        )
+                };
+            }
+    });
+
+const fileFilter =
+    (req, file, cb) => {
+
+        const allowed = [
+
+            'image/jpeg',
+            'image/jpg',
+            'image/png',
+            'application/pdf'
+        ];
+
+        if (
+            allowed.includes(
+                file.mimetype
+            )
+        ) {
+
+            cb(null, true);
         }
 
-        else if (file.fieldname === 'identityProof') {
-            cb(null, 'uploads/identity');
+        else {
+
+            cb(
+                new Error(
+                    'Only JPG, PNG and PDF allowed'
+                )
+            );
         }
-    },
-
-    filename: (req, file, cb) => {
-
-        const uniqueName =
-            Date.now() +
-            '-' +
-            Math.round(Math.random() * 1E9) +
-            path.extname(file.originalname);
-
-        cb(null, uniqueName);
-    }
-});
-
-const fileFilter = (req, file, cb) => {
-
-    const allowed = [
-        'image/jpeg',
-        'image/jpg',
-        'image/png',
-        'application/pdf'
-    ];
-
-    if (allowed.includes(file.mimetype)) {
-        cb(null, true);
-    }
-    else {
-        cb(new Error('Only JPG, PNG and PDF allowed'));
-    }
-};
+    };
 
 module.exports = multer({
+
     storage,
+
     fileFilter,
+
     limits: {
-        fileSize: 5 * 1024 * 1024
+
+        fileSize:
+            5 * 1024 * 1024
     }
+
 }).fields([
-    { name: 'photo', maxCount: 1 },
-    { name: 'identityProof', maxCount: 1 }
+
+    {
+        name: 'photo',
+        maxCount: 1
+    },
+
+    {
+        name: 'identityProof',
+        maxCount: 1
+    }
 ]);
